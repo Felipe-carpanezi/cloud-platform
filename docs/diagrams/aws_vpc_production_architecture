@@ -1,0 +1,29 @@
+digraph "AWS VPC Production Architecture" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="AWS VPC Production Architecture" nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	"0965ece60d5843e382a59cb436760810" [label="Internet Gateway" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/internet-gateway.png" shape=none]
+	subgraph cluster_VPC {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label=VPC labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		subgraph "cluster_Public Subnets" {
+			graph [bgcolor="#EBF3E7" fontname="Sans-Serif" fontsize=12 label="Public Subnets" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+			"783003bea5fa4602853a091c7fb13f97" [label="Public Subnet 1" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/public-subnet.png" shape=none]
+			"6655fe4b8c7e48629c070a95e3e23517" [label="Public Subnet 2" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/public-subnet.png" shape=none]
+		}
+		subgraph "cluster_Private Subnets" {
+			graph [bgcolor="#EBF3E7" fontname="Sans-Serif" fontsize=12 label="Private Subnets" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+			d58862923a114a1aa9bb40b1ef17fe90 [label="Private Subnet 1" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/private-subnet.png" shape=none]
+			"85f85ec797e94a4ea4c47451929d58c8" [label="Private Subnet 2" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/private-subnet.png" shape=none]
+		}
+		"0d61d884cb214cae8d0dfb227766c572" [label="NAT Gateway" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/nat-gateway.png" shape=none]
+		ee859b3edfd744f08f9ba3a86a03190c [label="App 1" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/compute/ec2.png" shape=none]
+		"812c375031c04fffa281b7cf6b08fc67" [label="App 2" height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/compute/ec2.png" shape=none]
+	}
+	"0965ece60d5843e382a59cb436760810" -> "783003bea5fa4602853a091c7fb13f97" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"0965ece60d5843e382a59cb436760810" -> "6655fe4b8c7e48629c070a95e3e23517" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"783003bea5fa4602853a091c7fb13f97" -> "0d61d884cb214cae8d0dfb227766c572" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"0d61d884cb214cae8d0dfb227766c572" -> d58862923a114a1aa9bb40b1ef17fe90 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"0d61d884cb214cae8d0dfb227766c572" -> "85f85ec797e94a4ea4c47451929d58c8" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	d58862923a114a1aa9bb40b1ef17fe90 -> ee859b3edfd744f08f9ba3a86a03190c [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"85f85ec797e94a4ea4c47451929d58c8" -> "812c375031c04fffa281b7cf6b08fc67" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
