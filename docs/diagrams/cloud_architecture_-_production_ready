@@ -1,0 +1,27 @@
+digraph "Cloud Architecture - Production Ready" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Cloud Architecture - Production Ready" nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	e4a785ae3d19441dad317af15b7046c1 [label=Route53 height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/route-53.png" shape=none]
+	subgraph "cluster_Edge Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Edge Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		bcb91d4ff72d4b51939cbaaadf3df602 [label=CloudFront height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/network/cloudfront.png" shape=none]
+	}
+	subgraph "cluster_Application Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Application Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		f76a90e79d0d430189eb1107899e9b20 [label=Frontend height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/compute/ec2.png" shape=none]
+		"8dc20f4ec1e14c25bda4f96e0f4787c9" [label=Backend height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/compute/ec2.png" shape=none]
+	}
+	subgraph "cluster_Data Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Data Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		bab6abfb51184673920ee7d10bb27c3e [label=PostgreSQL height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/database/rds.png" shape=none]
+		f4d4b643bbcd49b38152a5ab6c46537c [label=Assets height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/storage/simple-storage-service-s3.png" shape=none]
+	}
+	c20ac3f9d9184841944ac9e2dc65b16c [label=Webhook height=1.9 image="/home/felipe/cloud-platform/docs/diagrams/.venv/lib/python3.12/site-packages/resources/aws/compute/lambda.png" shape=none]
+	e4a785ae3d19441dad317af15b7046c1 -> bcb91d4ff72d4b51939cbaaadf3df602 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	bcb91d4ff72d4b51939cbaaadf3df602 -> f76a90e79d0d430189eb1107899e9b20 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	f76a90e79d0d430189eb1107899e9b20 -> "8dc20f4ec1e14c25bda4f96e0f4787c9" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"8dc20f4ec1e14c25bda4f96e0f4787c9" -> bab6abfb51184673920ee7d10bb27c3e [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"8dc20f4ec1e14c25bda4f96e0f4787c9" -> f4d4b643bbcd49b38152a5ab6c46537c [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"8dc20f4ec1e14c25bda4f96e0f4787c9" -> c20ac3f9d9184841944ac9e2dc65b16c [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
