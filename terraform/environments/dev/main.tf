@@ -5,4 +5,3 @@ provider "aws" {
 resource "aws_s3_bucket" "test" {
   bucket = "bucket-felipe-estudo-15042026"
 }
-
