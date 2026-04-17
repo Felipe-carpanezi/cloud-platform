@@ -14,6 +14,8 @@ spec:
         hostname: rancher.3.223.58.250.sslip.io
         bootstrapPassword: admin
         replicas: 1
+        ingress:
+          ingressClassName: nginx
   destination:
     server: https://kubernetes.default.svc
     namespace: cattle-system
