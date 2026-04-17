@@ -1,18 +1,17 @@
-# Terraform
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Terraform / Terragrunt
 .terraform/
+.terragrunt-cache/
 *.tfstate
 *.tfstate.*
-crash.log
 
-# Python
-__pycache__/
-*.pyc
+# IDEs
+.vscode/
+.idea/
 
 # OS
 .DS_Store
-
-# VS Code
-.vscode/
-
-# Logs
-*.log
