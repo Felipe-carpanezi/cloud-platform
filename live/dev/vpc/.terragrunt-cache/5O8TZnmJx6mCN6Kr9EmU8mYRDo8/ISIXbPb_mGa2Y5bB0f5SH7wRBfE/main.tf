@@ -1,3 +1,5 @@
+data "aws_availability_zones" "available" {}
+
 terraform {
   backend "s3" {}
 }
@@ -23,6 +25,9 @@ resource "aws_subnet" "public" {
 
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.public_subnets[count.index]
+
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+
   map_public_ip_on_launch = true
 }
 
