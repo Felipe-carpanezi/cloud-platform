@@ -11,7 +11,7 @@ spec:
     targetRevision: 2.8.2
     helm:
       values: |
-        hostname: rancher.a9866bd51dfaa4946b216796ad4f8099-40de055de372998b.elb.us-east-1.amazonaws.com
+        hostname: rancher.3.223.58.250.sslip.io
         bootstrapPassword: admin
         replicas: 1
   destination:

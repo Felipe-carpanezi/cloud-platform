@@ -16,7 +16,7 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - grafana.a9866bd51dfaa4946b216796ad4f8099-40de055de372998b.elb.us-east-1.amazonaws.com
+              - grafana.3.223.58.250.sslip.io
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
