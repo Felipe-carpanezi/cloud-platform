@@ -8,9 +8,9 @@ spec:
   source:
     chart: rancher
     repoURL: https://releases.rancher.com/server-charts/stable
-    targetRevision: 2.9.2 # Versão estável para K8s 1.29
+    targetRevision: 2.9.2
     helm:
-      # Esse comando força o Helm a ignorar a versão real do EKS na validação
+      # Força a compatibilidade com o motor do EKS 1.29
       kubeVersion: 1.28.0 
       values: |
         hostname: rancher.3.223.58.250.sslip.io
@@ -18,8 +18,6 @@ spec:
         replicas: 1
         ingress:
           ingressClassName: nginx
-        tls:
-          source: rancher
   destination:
     server: https://kubernetes.default.svc
     namespace: cattle-system
