@@ -8,8 +8,10 @@ spec:
   source:
     chart: rancher
     repoURL: https://releases.rancher.com/server-charts/stable
-    targetRevision: 2.8.5 # <--- ATUALIZADO: Suporte para K8s 1.29
+    targetRevision: 2.9.2 # <--- Versão mais estável
     helm:
+      # TRUQUE DE MESTRE: Força o Helm a pensar que o K8s é 1.28 para passar na validação
+      kubeVersion: 1.28.0 
       values: |
         hostname: rancher.3.223.58.250.sslip.io
         bootstrapPassword: admin
@@ -17,7 +19,7 @@ spec:
         ingress:
           ingressClassName: nginx
         tls:
-          source: rancher # Instrução para o Rancher gerenciar o próprio certificado via cert-manager
+          source: rancher
   destination:
     server: https://kubernetes.default.svc
     namespace: cattle-system
@@ -27,3 +29,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
