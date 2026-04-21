@@ -1,34 +1,51 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: uptime-kuma
-  namespace: argocd
+  namespace: uptime-kuma
 spec:
-  project: default
-  source:
-    chart: uptime-kuma
-    repoURL: https://dirsigler.github.io/uptime-kuma-helm
-    targetRevision: 2.1.1
-    helm:
-      values: |
-        ingress:
-          enabled: true
-          ingressClassName: nginx
-          hosts:
-            - host: uptime.52.202.46.203.sslip.io
-              paths:
-                - path: /
-                  pathType: Prefix
-        strategy:
-          type: Recreate
-        persistence:
-          enabled: false # <--- DESATIVA A NECESSIDADE DE DISCO EBS                
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: uptime-kuma
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uptime-kuma
+  template:
+    metadata:
+      labels:
+        app: uptime-kuma
+    spec:
+      containers:
+      - name: uptime-kuma
+        image: louislam/uptime-kuma:1
+        ports:
+        - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uptime-kuma
+  namespace: uptime-kuma
+spec:
+  ports:
+    - port: 80
+      targetPort: 3001
+  selector:
+    app: uptime-kuma
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uptime-kuma
+  namespace: uptime-kuma
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: uptime.52.202.46.203.sslip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: uptime-kuma
+            port:
+              number: 80
