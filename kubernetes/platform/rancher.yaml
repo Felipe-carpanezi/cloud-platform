@@ -13,7 +13,7 @@ spec:
       # Força a compatibilidade com o motor do EKS 1.29
       kubeVersion: 1.28.0 
       values: |
-        hostname: rancher.3.223.58.250.sslip.io
+        hostname: rancher.52.202.46.203.sslip.io
         bootstrapPassword: admin
         replicas: 1
         ingress:
