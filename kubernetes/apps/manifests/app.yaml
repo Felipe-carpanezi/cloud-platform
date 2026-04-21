@@ -8,9 +8,10 @@ data:
     <!DOCTYPE html>
     <html>
     <head><title>Cloud Platform</title></head>
-    <body>
-      <h1>🚀 Plataforma funcionando!</h1>
-      <p>Deploy via GitOps + Kubernetes + AWS</p>
+    <body style="background-color: #2c3e50; color: white; text-align: center; padding-top: 100px; font-family: sans-serif;">
+      <h1>🚀 Plataforma Felipe Carpanezi funcionando!</h1>
+      <p>Deploy via GitOps + ArgoCD + AWS EKS</p>
+      <div style="color: #27ae60;">● Online</div>
     </body>
     </html>
 ---
@@ -20,7 +21,7 @@ metadata:
   name: web-app
   namespace: my-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: web
