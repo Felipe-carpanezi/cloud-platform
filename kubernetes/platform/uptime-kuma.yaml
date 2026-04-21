@@ -19,6 +19,10 @@ spec:
               paths:
                 - path: /
                   pathType: Prefix
+        strategy:
+          type: Recreate
+        persistence:
+          enabled: false # <--- DESATIVA A NECESSIDADE DE DISCO EBS                
   destination:
     server: https://kubernetes.default.svc
     namespace: uptime-kuma
