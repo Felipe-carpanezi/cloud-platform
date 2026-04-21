@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitoring
+  name: rancher-monitoring
   namespace: argocd
 spec:
   project: default
   source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 56.6.2
+    chart: rancher-monitoring
+    repoURL: https://charts.rancher.io
+    targetRevision: 103.1.1+up45.31.1
     helm:
       values: |
         grafana:
@@ -17,9 +17,18 @@ spec:
             ingressClassName: nginx
             hosts:
               - grafana.52.202.46.203.sslip.io
+        prometheus:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - prometheus.52.202.46.203.sslip.io
+          prometheusSpec:
+            scrapeInterval: "30s"
+            evaluationInterval: "30s"
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: cattle-monitoring-system
   syncPolicy:
     automated:
       prune: true
