@@ -22,14 +22,15 @@ No cenário atual de transformação digital, muitas empresas enfrentam o **"Gar
 
 ## 🏗️ Arquitetura da Solução
 
-A solução foi desenhada seguindo as melhores práticas de arquitetura da AWS (Well-Architected Framework), focada em alta disponibilidade e isolamento de rede.
+A solução foi desenhada em duas camadas complementares, seguindo as melhores práticas da AWS (Well-Architected Framework).
 
-![Arquitetura da Solução](./docs/diagrams/full_architecture.png)
+### 1. Infraestrutura de Nuvem (AWS Layer)
+Focada em isolamento de rede, resiliência e segurança perimetral.
+![Arquitetura de Infraestrutura](./docs/diagrams/full_architecture.png)
 
-### Diferenciais Técnicos:
-*   **Isolamento de Rede:** Clusters EKS operando em Subnets Privadas com saída via NAT Gateway.
-*   **Código DRY (Don't Repeat Yourself):** Uso do **Terragrunt** para gerenciar múltiplos ambientes e contas AWS sem duplicidade de código.
-*   **Bootstrap Automático:** Implementação do padrão *App-of-Apps* com **Argo CD**, permitindo que a plataforma se "auto-instale" a partir do repositório Git.
+### 2. Ecossistema de Software (Cluster Layer)
+Organização lógica dos serviços de plataforma e aplicações de negócio gerenciados via GitOps.
+![Arquitetura de Software](./docs/diagrams/cluster_internal_final.png)
 
 ---
 
@@ -42,24 +43,26 @@ A solução foi desenhada seguindo as melhores práticas de arquitetura da AWS (
 | **Orquestração** | Kubernetes (Amazon EKS v1.29) |
 | **Entrega Contínua (GitOps)** | Argo CD |
 | **Gestão de Cluster** | Rancher Manager |
-| **Observabilidade** | Prometheus & Grafana |
-| **Disponibilidade** | Uptime Kuma |
+| **Segurança de Rede** | Nginx Ingress + Cert-Manager |
+| **Disponibilidade (SRE)** | Uptime Kuma |
 
 ---
 
-## 📊 Planejamento Financeiro (FinOps)
+## 💰 Gestão Financeira Automática (FinOps)
 
-Como diferencial de consultoria, este projeto inclui uma análise de custos operacionais (estimativa baseada na região `us-east-1`):
+Nesta consultoria, implementamos o **Infracost**, que analisa o código IaC e prevê os custos antes do deploy. O relatório abaixo reflete a análise real do projeto:
 
-| Recurso Cloud | Configuração | Custo/Hora | Custo/Mês (Est.) |
-| :--- | :--- | :--- | :--- |
-| **Amazon EKS** | Control Plane | $0.10 | $72.00 |
-| **EC2 Nodes** | 2x t3.medium (4GB RAM) | $0.083 | $59.80 |
-| **NAT Gateway** | Saída Privada de Rede | $0.045 | $32.40 |
-| **Load Balancer** | Network LB (Ingress) | $0.022 | $16.20 |
-| **TOTAL ESTIMADO** | | **$0.25** | **$180.40** |
+| Projeto | Recurso Principal | Custo Mensal |
+| :--- | :--- | :--- |
+| **EKS Project** | Cluster + Nodes + KMS | $503.94 |
+| **VPC Project** | NAT Gateway + Network | $32.85 |
+| **TOTAL GERAL** | | **$536.79** |
 
-> 💡 **Valor Consultivo:** O uso da versão 1.29 do Kubernetes evita taxas de suporte estendido da AWS ($0.60/h), gerando uma economia direta de aproximadamente **$432.00 mensais**.
+### 💡 Insight Consultivo de Redução de Custo:
+O Infracost detectou que **$438.00** do custo mensal (mais de 80% da fatura) é referente ao **Extended Support** da AWS para a versão 1.29 do Kubernetes.
+*   **Ação:** Realizar o upgrade para a versão **1.30**.
+*   **Economia Estimada:** **R$ 2.400,00/mês (Aprox. $438 USD)**. 
+*   *Este projeto prova que a arquitetura bem gerida se paga através da manutenção preventiva.*
 
 ---
 
@@ -70,13 +73,13 @@ Como diferencial de consultoria, este projeto inclui uma análise de custos oper
 2.  **Bootstrap da Plataforma:**
     Instale o Argo CD via Helm e aplique o manifesto em `kubernetes/bootstrap/root-app.yaml`.
 3.  **Sincronização Automática:**
-    O Argo CD assumirá o controle e provisionará automaticamente o Ingress-Nginx, Cert-Manager, Rancher e a stack de monitoramento.
+    O Argo CD assumirá o controle e provisionará automaticamente o Ingress-Nginx, Cert-Manager, Rancher e o Uptime Kuma.
 
 ---
 
 ## 👤 Autor
 
-**Felipe Carpanezi**
+**Felipe Carpanezi**  
 *Cloud Architect & Platform Engineer*
 
 *   [LinkedIn](https://www.linkedin.com/in/felipe-carpanezi-b5440334/)
