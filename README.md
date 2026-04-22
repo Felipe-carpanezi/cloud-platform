@@ -30,7 +30,7 @@ Focada em isolamento de rede, resiliência e segurança perimetral.
 
 ### 2. Ecossistema de Software (Cluster Layer)
 Organização lógica dos serviços de plataforma e aplicações de negócio gerenciados via GitOps.
-![Arquitetura de Software](./docs/diagrams/cluster_internal_final.png)
+![Arquitetura de Software](https://github.com/Felipe-carpanezi/cloud-platform/blob/main/docs/diagrams/cluster_internal_pro.png)
 
 ---
 
